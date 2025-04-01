@@ -54,6 +54,9 @@ android {
             // so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("release")
         }
+        debug {
+            signingConfig = signingConfigs.getByName("debug")
+        }
     }
 }
 
