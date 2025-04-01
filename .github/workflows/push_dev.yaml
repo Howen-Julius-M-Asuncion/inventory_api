@@ -6,8 +6,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      # Setup env variables that will be used throughout the workflow
+      JAVA_VERSION: 17.0
+      FLUTTER_VERSION: 3.29.0
+
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup Java to compile the Android project
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: ${{ env.JAVA_VERSION }}
 
       - uses: subosito/flutter-action@v2
         with:
