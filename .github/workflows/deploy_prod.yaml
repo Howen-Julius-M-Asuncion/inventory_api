@@ -79,7 +79,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: aab-stores
-          path: build/app/outputs/bundle/release/app-release.aab
+          path: {{ env.AAB_PATH }}
 
       # Deploy bundle to Google Play internal testing
       - name: Deploy to Play Store (Internal testing)
@@ -87,5 +87,5 @@ jobs:
         with:
           serviceAccountJson: ${{ env.SERVICE_ACCOUNT_PATH }}
           packageName: com.hgr.inventory_api
-          releaseFiles: build/app/outputs/bundle/release/app-release.aab
+          releaseFiles: {{ env.AAB_PATH }}
           track: internal
