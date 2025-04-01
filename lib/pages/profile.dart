@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
+import '../public/variables.dart';
 import '/main.dart';
 import '/pages/login.dart';
 
@@ -14,7 +16,8 @@ class Profilepage extends StatefulWidget {
 }
 
 class _ProfilepageState extends State<Profilepage> {
-  String server = "http://192.168.1.55/inventory_api/";
+  String server = serverVariable.url;
+
 
   List<dynamic> users = [];
   String editedEmail = "";
@@ -34,7 +37,8 @@ class _ProfilepageState extends State<Profilepage> {
   Future<void> getUser() async {
     try {
       final response = await http.get(
-        Uri.parse("${server}api/accounts/get.php?id=${userProfile['id']}"),
+        Uri.parse("${server}api/accounts/get.php?id=${profileVariables.userProfile['id']}"),
+
       );
       if (response.statusCode == 200) {
         setState(() {
@@ -47,12 +51,18 @@ class _ProfilepageState extends State<Profilepage> {
           usernameController.text = editedUsername;
           passwordController.text = editedPassword;
         });
-        print("User fetched: ${response.body}");
+        if (kDebugMode) {
+          print("User fetched: ${response.body}");
+        }
       } else {
-        print("Failed to load users: ${response.statusCode}");
+        if (kDebugMode) {
+          print("Failed to load users: ${response.statusCode}");
+        }
       }
     } catch (e) {
-      print("Error fetching user: $e");
+      if (kDebugMode) {
+        print("Error fetching user: $e");
+      }
     }
   }
 
@@ -67,7 +77,8 @@ class _ProfilepageState extends State<Profilepage> {
       if (isPasswordEdited) requestBody['password'] = editedPassword;
 
       final response = await http.post(
-        Uri.parse('${server}/api/accounts/update.php'),
+        Uri.parse('$server/api/accounts/update.php'),
+
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode(requestBody),
       );
@@ -244,6 +255,10 @@ class _ProfilepageState extends State<Profilepage> {
                           content: Text('Are you sure?'),
                           actions: [
                             CupertinoButton(
+                              child: Text("No"),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                            CupertinoButton(
                               child: Text("Yes", style: TextStyle(color: CupertinoColors.destructiveRed)),
                               onPressed: () {
                                 setState(() {
@@ -251,13 +266,9 @@ class _ProfilepageState extends State<Profilepage> {
                                 });
                                 Navigator.of(context).pushAndRemoveUntil(
                                   CupertinoPageRoute(builder: (context) => const Loginpage()),
-                                    (Route<dynamic> route) => false,
+                                      (Route<dynamic> route) => false,
                                 );
                               },
-                            ),
-                            CupertinoButton(
-                              child: Text("No"),
-                              onPressed: () => Navigator.pop(context),
                             ),
                           ],
                         ),
@@ -454,7 +465,7 @@ class _ProfilepageState extends State<Profilepage> {
                 child: CupertinoButton(
                   color: CupertinoTheme.of(context).primaryColor,
                   disabledColor: CupertinoTheme.of(context).primaryColor.withAlpha(150),
-                  // Button Disabler
+                  // Disable button when no changes are made
                   onPressed: (isEmailEdited || isUsernameEdited || isPasswordEdited)
                       ? () {
                     showCupertinoDialog(
@@ -463,7 +474,6 @@ class _ProfilepageState extends State<Profilepage> {
                         title: Text('Message'),
                         content: Text(
                           'Are you sure you want to update your profile?',
-                          style: TextStyle(fontSize: 18),
                         ),
                         actions: [
                           CupertinoButton(
@@ -511,3 +521,4 @@ class _ProfilepageState extends State<Profilepage> {
     );
   }
 }
+

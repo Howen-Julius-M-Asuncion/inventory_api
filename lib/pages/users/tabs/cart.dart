@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -19,6 +20,7 @@ class Cartpage extends StatefulWidget {
 
 class _CartpageState extends State<Cartpage> {
   String server = serverVariable.url;
+
   bool isLoading = true;
   String? error;
   List<dynamic> cartProducts = [];
@@ -294,12 +296,12 @@ class _CartpageState extends State<Cartpage> {
                                                               onPressed: () => Navigator.pop(context),
                                                             ),
                                                             CupertinoDialogAction(
-                                                              child: const Text('Remove'),
                                                               isDestructiveAction: true,
                                                               onPressed: () async {
                                                                 Navigator.pop(context);
                                                                 await removeProduct(product['id']);
                                                               },
+                                                              child: const Text('Remove'),
                                                             ),
                                                           ],
                                                         ),
@@ -320,7 +322,9 @@ class _CartpageState extends State<Cartpage> {
                                                   minSize: 0,
                                                   onPressed: () async {
                                                     await updateCartData(product['id'], quantity + 1);
-                                                    print(quantity + 1);
+                                                    if (kDebugMode) {
+                                                      print(quantity + 1);
+                                                    }
                                                   },
                                                   child: const Icon(
                                                     CupertinoIcons.plus,
@@ -350,12 +354,12 @@ class _CartpageState extends State<Cartpage> {
                                           onPressed: () => Navigator.pop(context),
                                         ),
                                         CupertinoDialogAction(
-                                          child: const Text('Remove'),
                                           isDestructiveAction: true,
                                           onPressed: () async {
                                             Navigator.pop(context);
                                             await removeProduct(product['id']);
                                           },
+                                          child: const Text('Remove'),
                                         ),
                                       ],
                                     ),
@@ -466,3 +470,4 @@ class _CartpageState extends State<Cartpage> {
     );
   }
 }
+

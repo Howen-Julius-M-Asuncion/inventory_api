@@ -1,0 +1,91 @@
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      # Setup env variables that will be used throughout the workflow
+      JAVA_VERSION: 12.0
+      FLUTTER_VERSION: 3.29.0
+      AAB_PATH: build/app/outputs/bundle/release/app-release.aab
+      KEYSTORE_PATH: android/app/upload-keystore.jks
+      KEY_PROPS_PATH: android/key.properties
+      SERVICE_ACCOUNT_PATH: store_credentials.json
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      - name: Setup Java to compile the Android project
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+
+      - name: Decode Android keystore
+        run: echo "${{ secrets.ANDROID_KEYSTORE }}" | base64 --decode > ${{ env.KEYSTORE_PATH }}
+
+      - name: Decode Android key properties
+        run: echo "${{ secrets.ANDROID_KEY_PROPERTIES }}" | base64 --decode > ${{ env.KEY_PROPS_PATH }}
+
+      # Decode Android release Service Account
+      - name: Decode Android Service Account
+        run: echo "${{ secrets.ANDROID_RELEASE_SERVICE_ACCOUNT }}" | base64 --decode > ${{ env.SERVICE_ACCOUNT_PATH }}
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Ensure App Builds
+        run: flutter build apk --release
+
+      - name: Create Git Tag
+        id: tag
+        run: |
+          TAG_NAME=v1.0.${{ github.run_number }}
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "GitHub Actions"
+          
+          git fetch --tags  # Ensure the latest tags are available
+          
+          git tag $TAG_NAME
+          git push origin $TAG_NAME
+
+
+      - name: Upload Release to GitHub
+        uses: ncipollo/release-action@v1
+        with:
+          name: "Release v1.0.${{ github.run_number }}"
+          artifacts: "build/app/outputs/flutter-apk/app-release.apk"
+          tag: ${{ env.TAG_NAME }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build aab
+        run: |
+          flutter build appbundle --release
+
+      - name: Upload generated aab to the artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: aab-stores
+          path: build/app/outputs/bundle/release/app-release.aab
+
+      # Deploy bundle to Google Play internal testing
+      - name: Deploy to Play Store (Internal testing)
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJson: ${{ env.SERVICE_ACCOUNT_PATH }}
+          packageName: com.hgr.inventory_api
+          releaseFiles: build/app/outputs/bundle/release/app-release.aab
+          track: internal

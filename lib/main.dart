@@ -16,8 +16,5 @@ void main() {
       brightness: Brightness.light,
       primaryColor: CupertinoColors.systemOrange
     ),
-    routes: {
-      Profilepage.routeName: (context) => Profilepage(),
-    },
   ));
 }
