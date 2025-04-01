@@ -421,7 +421,7 @@ class _MenupageState extends State<Menupage> {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,https://play.google.com/console/u/4/developers/6587184058240122287/app/4975469634759179850/app-dashboard
+                    mainAxisSpacing: 12,
                     childAspectRatio: 0.75,
                   ),
                   itemCount: products.length,
