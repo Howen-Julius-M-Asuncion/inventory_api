@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:inventory_api/pages/profile.dart';
 import 'package:inventory_api/pages/users/index.dart';
 import 'package:inventory_api/pages/login.dart';
+
+import 'package:inventory_api/pages/profile.dart';
 
 bool isLoggedIn = false;
 bool isLoading = false;

@@ -9,6 +9,7 @@ import 'package:inventory_api/pages/profile.dart';
 import 'package:inventory_api/pages/product.dart';
 import 'package:inventory_api/public/variables.dart';
 
+
 class Menupage extends StatefulWidget {
   const Menupage({super.key});
 
@@ -26,7 +27,7 @@ class _MenupageState extends State<Menupage> {
 
   String selectedCatName = "";
   bool isAllSelected = true;
-
+  
   int cardLimit = 0;
 
   Future<void> getCategory(int limit, bool random) async {
@@ -204,6 +205,7 @@ class _MenupageState extends State<Menupage> {
                                 CupertinoIcons.photo,
                                 size: 80,
                                 color: Colors.grey,
+
                               ),
                             ),
                           ),
@@ -319,6 +321,7 @@ class _MenupageState extends State<Menupage> {
                                     // Fetch data before updating state
                                     await getData(categoryId, cardLimit, true);
 
+
                                     setState(() {
                                       selectedCategory = categoryName;
                                       selectedCatName = categoryName;
@@ -345,6 +348,7 @@ class _MenupageState extends State<Menupage> {
                                             imagePath,
                                             width: 33,
                                             height: 33,
+
                                             fit: BoxFit.cover,
                                             errorBuilder: (context, error, stackTrace) => Icon(CupertinoIcons.photo, size: 46, color: CupertinoColors.black),
                                           ),
@@ -354,6 +358,7 @@ class _MenupageState extends State<Menupage> {
                                           category['name'],
                                           style: TextStyle(
                                             fontSize: 24,
+
                                             fontWeight: FontWeight.normal,
                                             color: isSelected ? CupertinoColors.black : CupertinoColors.label,
                                           ),
@@ -402,6 +407,7 @@ class _MenupageState extends State<Menupage> {
                     //     ],
                     //   )
                     // ),
+
                   ],
                 ),
               ),
@@ -415,7 +421,7 @@ class _MenupageState extends State<Menupage> {
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 12,
-                    mainAxisSpacing: 12,
+                    mainAxisSpacing: 12,https://play.google.com/console/u/4/developers/6587184058240122287/app/4975469634759179850/app-dashboard
                     childAspectRatio: 0.75,
                   ),
                   itemCount: products.length,
@@ -450,6 +456,7 @@ class _MenupageState extends State<Menupage> {
                                     fit: BoxFit.cover,
                                   )
                                       : null,
+
                                 ),
                                 child: product['image'] == null || product['image'].isEmpty
                                     ? Center(

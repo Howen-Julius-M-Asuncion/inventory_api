@@ -18,6 +18,7 @@ class Profilepage extends StatefulWidget {
 class _ProfilepageState extends State<Profilepage> {
   String server = serverVariable.url;
 
+
   List<dynamic> users = [];
   String editedEmail = "";
   String editedUsername = "";
@@ -37,6 +38,7 @@ class _ProfilepageState extends State<Profilepage> {
     try {
       final response = await http.get(
         Uri.parse("${server}api/accounts/get.php?id=${profileVariables.userProfile['id']}"),
+
       );
       if (response.statusCode == 200) {
         setState(() {
@@ -76,6 +78,7 @@ class _ProfilepageState extends State<Profilepage> {
 
       final response = await http.post(
         Uri.parse('$server/api/accounts/update.php'),
+
         headers: {'Content-Type': 'application/json; charset=UTF-8'},
         body: jsonEncode(requestBody),
       );
@@ -518,3 +521,4 @@ class _ProfilepageState extends State<Profilepage> {
     );
   }
 }
+

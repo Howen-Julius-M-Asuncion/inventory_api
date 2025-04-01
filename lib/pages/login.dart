@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:inventory_api/pages/users/index.dart';
 import '../main.dart';
 import '../public/variables.dart';
+
 
 class Loginpage extends StatefulWidget {
   const Loginpage({super.key});
@@ -91,6 +93,12 @@ class _LoginpageState extends State<Loginpage> {
     } finally {
       setState(() => _isLoading = false);
     }
+  }
+
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
