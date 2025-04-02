@@ -8,13 +8,13 @@ workflows:
     scripts:
       - flutter pub get
       # Decode your keystore from base64 and create the keystore file at correct location
-      - echo $ANDROID_KEYSTORE | base64 --decode > $CM_BUILD_DIR/android/app/inventory_api-release.keystore
+      - echo $KEYSTORE_BASE64 | base64 --decode > $CM_BUILD_DIR/android/app/inventory_api-release.keystore
       - export KEYSTORE_PATH=$CM_BUILD_DIR/android/app/inventory_api-release.keystore
       - flutter build apk --release
       - flutter build appbundle --release
 
       - name: Decode Google Play JSON Key
-        script: echo $ANDROID_RELEASE_SERVICE_ACCOUNT | base64 --decode > /tmp/google_play.json
+        script: echo $GOOGLE_PLAY_JSON | base64 --decode > /tmp/google_play.json
 
       - name: Upload to Google Play
         script: |
