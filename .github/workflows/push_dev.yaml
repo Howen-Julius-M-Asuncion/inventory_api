@@ -26,9 +26,7 @@ jobs:
           channel: stable
 
       - name: Install dependencies
-        run: |
-          flutter pub get
-          dart pub run flutter_launcher_icons
+        run: flutter pub get
 
       - name: Ensure App Builds
         run: flutter build apk --debug

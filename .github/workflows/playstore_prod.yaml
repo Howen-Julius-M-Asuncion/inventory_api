@@ -48,9 +48,7 @@ jobs:
 
       # Run flutter commands
       - name: Install dependencies
-        run: |
-          flutter pub get
-          dart pub run flutter_launcher_icons
+        run: flutter pub get
 
       # Build Android Bundle release file
       - name: Build aab
@@ -72,4 +70,3 @@ jobs:
           packageName: com.hgr.inventory_api
           releaseFiles: build/app/outputs/bundle/release/app-release.aab
           track: alpha
-#          status: draft
