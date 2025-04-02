@@ -71,5 +71,5 @@ jobs:
           serviceAccountJson: ${{ env.SERVICE_ACCOUNT_PATH }}
           packageName: com.hgr.inventory_api
           releaseFiles: build/app/outputs/bundle/release/app-release.aab
-          track: closed
+          track: alpha
 #          status: draft
