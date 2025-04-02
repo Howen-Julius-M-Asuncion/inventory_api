@@ -44,7 +44,7 @@ android {
             storeFile = file(System.getenv("KEYSTORE_PATH") ?: "inventory_api-release.keystore")
             storePassword = System.getenv("KEYSTORE_PASSWORD")
             keyAlias = System.getenv("KEY_ALIAS")
-            keyPassword = System.getenv("KEYSTORE_PASSWORD")
+            keyPassword = System.getenv("KEY_PASSWORD")
         }
     }
 
