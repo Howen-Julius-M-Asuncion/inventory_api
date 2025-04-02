@@ -7,10 +7,10 @@
     <application
         android:label="Crucian EATS"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
-        android:graphicsBackend="skia"
-        android:enableOnBackInvokedCallback="true"
-        android:usesCleartextTraffic="true">
+        android:icon="@mipmap/launcher_icon">
+<!--        android:graphicsBackend="skia"-->
+<!--        android:enableOnBackInvokedCallback="true"-->
+<!--        android:usesCleartextTraffic="true">-->
         <!--        <meta-data-->
 <!--            android:name="io.flutter.embedding.android.EnableImpeller"-->
 <!--            android:value="false" />-->
