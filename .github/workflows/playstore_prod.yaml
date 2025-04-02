@@ -48,7 +48,9 @@ jobs:
 
       # Run flutter commands
       - name: Install dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
+          dart pub run flutter_launcher_icons
 
       # Build Android Bundle release file
       - name: Build aab

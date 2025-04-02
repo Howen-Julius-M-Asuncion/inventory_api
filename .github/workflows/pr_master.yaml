@@ -15,4 +15,6 @@ jobs:
           channel: stable
 
       - name: Install dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
+          dart pub run flutter_launcher_icons

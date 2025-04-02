@@ -44,7 +44,9 @@ jobs:
         run: echo "${{ secrets.ANDROID_RELEASE_SERVICE_ACCOUNT }}" | base64 --decode > ${{ env.SERVICE_ACCOUNT_PATH }}
 
       - name: Install dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
+          dart pub run flutter_launcher_icons
 
       - name: Ensure App Builds
         run: flutter build apk --release
