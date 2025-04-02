@@ -1,18 +1,15 @@
 import 'package:flutter/cupertino.dart';
-import 'package:inventory_api/pages/profile.dart';
-import 'package:inventory_api/pages/users/index.dart';
 import 'package:inventory_api/pages/login.dart';
-
-import 'package:inventory_api/pages/profile.dart';
 
 bool isLoggedIn = false;
 bool isLoading = false;
 
 void main() {
+  // debugDisableShadows = true;
   runApp(CupertinoApp(
-    home: isLoggedIn ? Indexpage() : Loginpage(),
-    debugShowCheckedModeBanner: false,
-    theme: CupertinoThemeData(
+    home: const Loginpage(),
+    // debugShowCheckedModeBanner: false,
+    theme: const CupertinoThemeData(
       brightness: Brightness.light,
       primaryColor: CupertinoColors.systemOrange
     ),

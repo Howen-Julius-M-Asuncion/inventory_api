@@ -1,5 +1,5 @@
 class serverVariable {
-  static String url = "http://192.168.1.55/inventory_api/";
+  static String url = "https://hgrdev.store/";
 }
 
 class productVariables {
