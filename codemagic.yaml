@@ -9,7 +9,7 @@ workflows:
       - flutter pub get
       # Decode your keystore from base64 and create the keystore file at correct location
       - echo $ANDROID_KEYSTORE | base64 --decode > $CM_BUILD_DIR/android/app/inventory_api-release.keystore
-      - export KEYSTORE_PATH=$CM_BUILD_DIR/android/app/weather-release.keystore
+      - export KEYSTORE_PATH=$CM_BUILD_DIR/android/app/inventory_api-release.keystore
       - flutter build apk --release
       - flutter build appbundle --release
 
